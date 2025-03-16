@@ -23,10 +23,12 @@ jobs:
         run: npx antora antora-playbook.yml
 
       - name: Deploy via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.SFTP_HOST }}
+          server: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          local-dir: build/site/
-          server-dir: /
+          port: 22
+          protocol: sftp
+          local-dir: ./build/site/
+          server-dir: ./
