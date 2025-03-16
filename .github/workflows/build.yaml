@@ -22,14 +22,11 @@ jobs:
       - name: Build Documentation
         run: npx antora antora-playbook.yml
 
-      - name: Deploy via SFTP to Strato
-        uses: appleboy/scp-action@v0.1.4
+      - name: Deploy via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
         with:
           host: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          port: 22
-          source: "build/site/*"
-          target: "/"
-          strip_components: 1
-          tar_exec: ""
+          local-dir: build/site/
+          server-dir: /
