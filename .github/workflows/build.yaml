@@ -22,9 +22,14 @@ jobs:
       - name: Build Documentation
         run: npx antora antora-playbook.yml
 
+  deploy:
+    needs: build-docs
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: build/site
-          clean: true
+        id: deployment
+        uses: actions/deploy-pages@v2
