@@ -1,4 +1,4 @@
-name: Build and Deploy FLOW Antora Documentation
+name: Build FLOWAntora
 
 on:
   repository_dispatch:
