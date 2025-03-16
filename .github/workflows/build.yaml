@@ -22,11 +22,9 @@ jobs:
       - name: Build Documentation
         run: npx antora antora-playbook.yml
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./build/site/
-          server-dir: ./docs/
+          branch: gh-pages
+          folder: build/site
+          clean: true
