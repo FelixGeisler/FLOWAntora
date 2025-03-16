@@ -1,0 +1,34 @@
+site:
+  title: FLOW Documentation
+  url: https://flow-installer.de/docs
+  start_page: flow:SoftwareArchitecture:00_SoftwareArchitecture.adoc
+  
+content:
+  sources:
+  - url: https://github.com/FelixGeisler/FLOWDocs.git
+    branches: main
+    start_path: docs
+
+asciidoc:
+  attributes:
+    kroki-server-url: https://kroki.io/
+    kroki-fetch-diagram: true
+    experimental: ''
+    idprefix: ''
+    idseparator: '-'
+    page-pagination: ''
+    source-highlighter: highlightjs
+  extensions:
+  - asciidoctor-kroki
+
+ui:
+  bundle:
+    url: https://github.com/FelixGeisler/FLOWAntoraUI/releases/download/v1.0.0/flow-ui-bundle.zip
+    snapshot: true
+
+git:
+  ensure_git_suffix: false
+
+antora:
+  extensions:
+  - require: '@antora/lunr-extension'

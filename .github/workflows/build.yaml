@@ -1,0 +1,34 @@
+name: Build and Deploy FLOW Antora Documentation
+
+on:
+  repository_dispatch:
+    types: [build-antora]
+  workflow_dispatch:
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Antora
+        run: npm install -g @antora/cli @antora/site-generator
+
+      - name: Install Kroki and Lunr extensions
+        run: npm install @antora/lunr-extension asciidoctor-kroki
+
+      - name: Build Documentation
+        run: npx antora antora-playbook.yml
+
+      - name: Deploy via SFTP to Strato
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          port: 22
+          source: "./public/*"
+          target: "."
+          strip_components: 1
