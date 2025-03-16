@@ -22,13 +22,11 @@ jobs:
       - name: Build Documentation
         run: npx antora antora-playbook.yml
 
-      - name: Deploy via SFTP
+      - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          port: 22
-          protocol: ftps
           local-dir: ./build/site/
           server-dir: ./
